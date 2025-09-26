@@ -8,11 +8,30 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/page-vsl/style.css"/>
+  <link rel="stylesheet" href="/page-vsl/style.css?v=4"/>
+
   <style>
+    /* ===== FIX 1: avatares gigantes ===== */
+    .comments-section .comment-card img{width:auto!important;height:auto!important;max-width:100%!important}
     .comments-section .comment-card .avatar{
       width:56px!important;height:56px!important;max-width:56px!important;max-height:56px!important;
       border-radius:50%!important;object-fit:cover!important;display:inline-block!important;flex:0 0 56px!important
+    }
+
+    /* ===== FIX 2: 3 cards SEM QUEBRAR (desktop) ===== */
+    #offers-section .pricing-container{
+      display:grid!important;
+      grid-template-columns:repeat(3, minmax(0,1fr))!important;
+      gap:2rem!important;
+      align-items:stretch!important;
+    }
+    #offers-section .pricing-card{
+      width:auto!important;max-width:none!important;flex:none!important;
+    }
+
+    /* Em telas menores, cai para 1 por linha (mobile) */
+    @media (max-width:1024px){
+      #offers-section .pricing-container{grid-template-columns:1fr!important}
     }
   </style>
 </head>
