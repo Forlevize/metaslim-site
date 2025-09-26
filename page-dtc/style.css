@@ -57,27 +57,11 @@ hr.separator{border:0;border-top:1px solid #ddd;margin:.6rem 0}
 .guarantee-box h2{font-size:2.2rem;margin-top:2rem}
 .guarantee-box h3{font-size:1.8rem;color:var(--gold);margin-bottom:1.5rem}
 .guarantee-box p{font-size:1.1rem;line-height:1.8;max-width:780px;margin:0 auto 1rem auto}
-.hero-seals{display:block;max-width:560px;width:100%;height:auto;margin:0 auto;filter:drop-shadow(0 2px 8px rgba(0,0,0,.15))}
+.hero-seals{display:block;max-width:560px;height:auto;margin:16px auto 0;filter:drop-shadow(0 2px 8px rgba(0,0,0,.15))}
 .site-footer{background-color:var(--dark-text);color:#aaa;padding:3rem 2rem;text-align:center}
 .site-footer p{margin-bottom:1rem;max-width:800px;margin-left:auto;margin-right:auto}
 .site-footer .disclaimer{font-size:.8rem;color:#bbb}
 @media (max-width:992px){
   .pricing-container{flex-direction:column;align-items:center}
   .pricing-card,.best-value{max-width:450px;transform:scale(1)}
-}
-
-.guarantee-box{
-  text-align: center;
-}
-
-.guarantee-box .hero-seals{
-  display: block;
-  margin: 16px auto 0;   
-  max-width: 560px;      
-  width: 100%;
-}
-
-
-.guarantee-box img.hero-seals{
-  float: none !important;
 }
