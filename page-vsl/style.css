@@ -50,11 +50,29 @@ hr.separator{border:0;border-top:1px solid #ddd;margin:.6rem 0}
 .logos-container{display:flex;justify-content:center;align-items:center}
 .comments-section{padding-top:10px}
 .comment-card{background:#fff;border:1px solid #eee;border-radius:12px;padding:18px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.comment-card .avatar{width:50px;height:50px;border-radius:50%;object-fit:cover;flex:0 0 50px}
+.avatar{width:50px;height:50px;border-radius:50%;object-fit:cover}
 .comment-author{margin:0 0 4px 0;font-size:1.05rem;font-weight:800;color:var(--dark-text)}
 .comment-text{margin:0;color:#555;line-height:1.6}
 .site-footer{text-align:center;padding:22px;margin-top:34px;color:#777;background:#fff}
 .disclaimer{font-size:.8rem;max-width:1200px;margin:6px auto 0}
 @media (max-width:1024px){
   .pricing-container{flex-wrap:wrap}
+}
+
+.comments-section .comment-card .avatar{
+  width:56px !important;
+  height:56px !important;
+  max-width:56px !important;
+  max-height:56px !important;
+  border-radius:50% !important;
+  object-fit:cover !important;
+  display:inline-block !important;
+  flex:0 0 56px !important;
+}
+
+/* garante que nenhuma regra global force width 100% dentro dos cards */
+.comments-section .comment-card img{
+  width:auto !important;
+  height:auto !important;
+  max-width:100% !important;
 }
