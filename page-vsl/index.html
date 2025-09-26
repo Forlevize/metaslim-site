@@ -8,14 +8,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="./style.css"/>
+  <link rel="stylesheet" href="/page-vsl/style.css"/>
+  <style>
+    .comments-section .comment-card .avatar{
+      width:56px!important;height:56px!important;max-width:56px!important;max-height:56px!important;
+      border-radius:50%!important;object-fit:cover!important;display:inline-block!important;flex:0 0 56px!important
+    }
+  </style>
 </head>
 <body>
   <main class="container">
     <section class="video-section">
       <div class="video-placeholder">
         <vturb-smartplayer id="vid-68d57f47672edb5ce8e04e59" style="display:block;margin:0 auto;width:100%;"></vturb-smartplayer>
-        <script type="text/javascript">var s=document.createElement("script");s.src="https://scripts.converteai.net/d8eccbd3-1abd-42bc-a6c9-76886e64285a/players/68d57f47672edb5ce8e04e59/v4/player.js",s.async=!0,document.head.appendChild(s);</script>
+        <script type="text/javascript">
+          var s=document.createElement("script");
+          s.src="https://scripts.converteai.net/d8eccbd3-1abd-42bc-a6c9-76886e64285a/players/68d57f47672edb5ce8e04e59/v4/player.js";
+          s.async=!0; document.head.appendChild(s);
+        </script>
       </div>
     </section>
 
@@ -23,6 +33,7 @@
       <div class="container">
         <h2 class="section-title">GET YOUR METASLIM AT A DISCOUNT NOW</h2>
         <p class="section-subtitle">LIMITED STOCK!</p>
+
         <div class="pricing-container">
           <div class="pricing-card">
             <div class="card-header"><h3>Basic Offer</h3><p>2 Bottles</p></div>
@@ -165,7 +176,13 @@
   </footer>
 
   <script>
-    document.addEventListener("DOMContentLoaded",function(){const e=60000;setTimeout(function(){const t=document.getElementById("offers-section");t&&(t.style.display="block",t.scrollIntoView({behavior:"smooth"}))},e)});
+    document.addEventListener("DOMContentLoaded",function(){
+      const showOffersDelay = 60000;
+      setTimeout(function(){
+        const s = document.getElementById("offers-section");
+        if(s){ s.style.display="block"; s.scrollIntoView({behavior:"smooth"}); }
+      }, showOffersDelay);
+    });
   </script>
 </body>
 </html>

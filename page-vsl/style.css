@@ -10,17 +10,34 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:'Poppins',sans-serif;background-color:#fff;color:var(--dark-text)}
+body{margin:0;font-family:'Poppins',sans-serif;background:#fff;color:var(--dark-text)}
 .container{max-width:1200px;margin:0 auto;padding:20px}
+
+/* VIDEO */
 .video-section{margin-bottom:30px}
-.video-placeholder{position:relative;width:100%;padding-top:0;background:#0000;border-radius:12px;overflow:hidden}
+.video-placeholder{position:relative;width:100%;overflow:hidden;border-radius:12px}
+
+/* TITLES */
 .section-title{font-size:2.5rem;color:var(--dark-text);margin-bottom:.5rem;text-align:center}
 .section-subtitle{font-size:1.2rem;color:#666;margin:0 auto 3rem auto;max-width:800px;text-align:center}
-.pricing-section{padding:4rem 2rem;background-color:var(--light-bg);border-radius:12px}
-.pricing-container{display:flex;justify-content:center;align-items:stretch;gap:2rem;flex-wrap:nowrap;margin-top:1.5rem}
-.pricing-card{background-color:var(--white);border:1px solid var(--light-gray-border);border-radius:16px;width:100%;max-width:350px;text-align:center;box-shadow:0 8px 16px rgba(0,0,0,.05);transition:transform .3s,box-shadow .3s;position:relative;display:flex;flex-direction:column}
+
+/* PRICING (3 colunas fixas) */
+.pricing-section{padding:4rem 2rem;background:var(--light-bg);border-radius:12px}
+.pricing-container{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(280px,1fr));
+  gap:2rem;
+  align-items:stretch;
+}
+.pricing-card{
+  background:#fff;border:1px solid var(--light-gray-border);border-radius:16px;
+  width:100%;max-width:unset;text-align:center;
+  box-shadow:0 8px 16px rgba(0,0,0,.05);
+  transition:transform .3s,box-shadow .3s;
+  position:relative;display:flex;flex-direction:column
+}
 .pricing-card:hover{transform:translateY(-10px);box-shadow:0 12px 24px rgba(0,0,0,.1)}
-.card-header{background-color:var(--dark-text);color:var(--white);padding:1.2rem;border-top-left-radius:16px;border-top-right-radius:16px}
+.card-header{background:var(--dark-text);color:#fff;padding:1.2rem;border-top-left-radius:16px;border-top-right-radius:16px}
 .card-header h3{font-size:1.5rem;font-weight:700;margin:0}
 .card-header p{font-size:1rem;color:rgba(255,255,255,.8);margin:0}
 .card-body{padding:1.2rem 1.5rem;display:flex;flex-direction:column;flex-grow:1}
@@ -33,46 +50,44 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:#fff;color:var(-
 .detail-item span{color:var(--orange);font-size:1.2rem;margin-right:.5rem}
 .savings-detail,.savings-detail span{color:var(--orange)}
 hr.separator{border:0;border-top:1px solid #ddd;margin:.6rem 0}
-.cta-button{display:block;width:100%;padding:1rem;border-radius:8px;border:none;font-size:1.5rem;font-weight:700;color:var(--white);text-decoration:none;cursor:pointer;transition:background-color .3s,transform .2s;margin-top:auto;background-color:var(--purple)}
-.cta-button:hover{transform:scale(1.05);background-color:var(--dark-text)}
+.cta-button{
+  display:block;width:100%;padding:1rem;border-radius:8px;border:none;
+  font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none;cursor:pointer;
+  transition:background-color .3s,transform .2s;margin-top:auto;background:var(--purple)
+}
+.cta-button:hover{transform:scale(1.05);background:var(--dark-text)}
 .button-subtext{display:block;font-size:.9rem;font-weight:400;line-height:1}
-.payment-logos-placeholder{font-size:.8rem;color:#aaa;margin:.8rem 0}
 .payment-logos-placeholder img{max-width:150px;height:auto;margin:0 auto;display:block}
 .total{font-size:1.1rem}
 .total del{color:#999}
 .shipping{font-weight:600}
-.best-value{border:2px solid var(--teal);transform:scale(1.03)}
-.best-value .card-header{background-color:var(--teal)}
-.best-value .cta-button{background-color:var(--gold);color:var(--dark-text)}
-.best-value .cta-button:hover{background-color:var(--teal);color:var(--white)}
-.best-value-banner{position:absolute;top:-15px;left:50%;transform:translateX(-50%);background-color:var(--gold);color:var(--dark-text);padding:.4rem 1.2rem;border-radius:20px;font-weight:700;font-size:1rem;z-index:2}
+.best-value{border:2px solid var(--teal)}
+.best-value .card-header{background:var(--teal)}
+.best-value .cta-button{background:var(--gold);color:var(--dark-text)}
+.best-value .cta-button:hover{background:var(--teal);color:#fff}
+.best-value-banner{position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark-text);padding:.4rem 1.2rem;border-radius:20px;font-weight:700;font-size:1rem;z-index:2}
+
+/* SEEN ON */
 .seen-on-section{padding:10px 0 30px}
 .logos-container{display:flex;justify-content:center;align-items:center}
+
+/* COMMENTS */
 .comments-section{padding-top:10px}
-.comment-card{background:#fff;border:1px solid #eee;border-radius:12px;padding:18px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.avatar{width:50px;height:50px;border-radius:50%;object-fit:cover}
+.comment-card{
+  background:#fff;border:1px solid #eee;border-radius:12px;padding:18px;margin-bottom:16px;
+  display:flex;gap:14px;align-items:flex-start;box-shadow:0 2px 6px rgba(0,0,0,.05)
+}
+.comment-card .avatar{
+  width:56px;height:56px;max-width:56px;max-height:56px;border-radius:50%;object-fit:cover;flex:0 0 56px
+}
 .comment-author{margin:0 0 4px 0;font-size:1.05rem;font-weight:800;color:var(--dark-text)}
 .comment-text{margin:0;color:#555;line-height:1.6}
+
+/* FOOTER */
 .site-footer{text-align:center;padding:22px;margin-top:34px;color:#777;background:#fff}
 .disclaimer{font-size:.8rem;max-width:1200px;margin:6px auto 0}
+
+/* RESPONSIVE */
 @media (max-width:1024px){
-  .pricing-container{flex-wrap:wrap}
-}
-
-.comments-section .comment-card .avatar{
-  width:56px !important;
-  height:56px !important;
-  max-width:56px !important;
-  max-height:56px !important;
-  border-radius:50% !important;
-  object-fit:cover !important;
-  display:inline-block !important;
-  flex:0 0 56px !important;
-}
-
-/* garante que nenhuma regra global force width 100% dentro dos cards */
-.comments-section .comment-card img{
-  width:auto !important;
-  height:auto !important;
-  max-width:100% !important;
+  .pricing-container{grid-template-columns:1fr}
 }
