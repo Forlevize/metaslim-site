@@ -123,7 +123,7 @@
       </div>
     </section>
 
-    <section class="comments-section">
+    <section class="comments-section" style="display:none;">
       <div class="comments-container">
         <div class="comment-card">
           <img src="../images/sarah.png" alt="Avatar — Sarah" class="avatar" loading="lazy" decoding="async">
@@ -213,5 +213,20 @@
       }, showOffersDelay);
     });
   </script>
+  
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // 50 minutos = 3.000.000 milissegundos
+      const showCommentsDelay = 3000000;
+      setTimeout(function() {
+        const comments = document.querySelector(".comments-section");
+        if (comments) {
+          comments.style.display = "block";
+          comments.scrollIntoView({ behavior: "smooth" });
+        }
+      }, showCommentsDelay);
+    });
+  </script>
+
 </body>
 </html>
