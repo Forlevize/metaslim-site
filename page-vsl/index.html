@@ -124,6 +124,14 @@
 img[src*="cartpanda"] {
   display: none !important;
 }
+    
+    /* Oculta variações do selo Cartpanda imediatamente */
+img[src*="cartpanda"],
+a[href*="cartpanda"],
+[alt*="cartpanda"],
+[title*="cartpanda"] {
+  display: none !important;
+}
 </style>
 </head>
 <body>
@@ -310,6 +318,59 @@ setTimeout(function() {
     el.style.display = "block";
   });
 }, 3600000);
+</script>
+  <script>
+// ===== Esconde qualquer variante do selo Cartpanda e só mostra depois do delay =====
+(function () {
+  // ajuste o delay aqui (1h = 3600000)
+  var SHOW_AFTER_MS = 3600000;
+
+  // Função que tenta ocultar tudo que lembre "cartpanda"
+  function hideCartpandaBadges() {
+    var sel = [
+      'img[src*="cartpanda"]',
+      'a[href*="cartpanda"]',
+      '[alt*="cartpanda"]',
+      '[title*="cartpanda"]',
+      'svg[aria-label*="cartpanda" i]',
+      'svg[title*="cartpanda" i]'
+    ].join(',');
+
+    document.querySelectorAll(sel).forEach(function(el){
+      el.style.display = 'none';
+      el.style.visibility = 'hidden';
+    });
+
+    // elementos com texto “cartpanda”
+    document.querySelectorAll('body *').forEach(function(el){
+      try {
+        var t = (el.textContent || '').toLowerCase();
+        if (t.includes('cartpanda')) {
+          el.style.display = 'none';
+          el.style.visibility = 'hidden';
+        }
+      } catch(e){}
+    });
+  }
+
+  hideCartpandaBadges();
+
+  // Se o script injetar depois, observamos o DOM e escondemos de novo
+  var mo = new MutationObserver(hideCartpandaBadges);
+  mo.observe(document.documentElement, {childList: true, subtree: true});
+
+  // Mostra depois do tempo definido
+  setTimeout(function(){
+    mo.disconnect();
+    // reexibe o que foi ocultado (opcional: só as imagens/links)
+    document.querySelectorAll(
+      'img[src*="cartpanda"],a[href*="cartpanda"],[alt*="cartpanda"],[title*="cartpanda"]'
+    ).forEach(function(el){
+      el.style.display = '';
+      el.style.visibility = '';
+    });
+  }, SHOW_AFTER_MS);
+})();
 </script>
 </body>
 </html>
