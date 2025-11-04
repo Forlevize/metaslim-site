@@ -59,60 +59,22 @@
   
   /* ===== FIX 3: rodapé colado no fim ===== */
   html, body {
-    min-height: 100%;
+    height: 100%;
     margin: 0;
-  }
-
-  body {
     display: flex;
     flex-direction: column;
   }
 
   main {
-    flex: 1 0 auto;
+    flex: 1;
   }
 
   footer.site-footer {
-    flex-shrink: 0;
     margin-top: auto;
     text-align: center;
     padding: 20px 10px;
     font-size: 12px;
     color: #555;
-  }
-  
-  /* Garantir que o vídeo seja visível e comece grande */
-  .video-section {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto 30px auto;
-  }
-  
-  .video-placeholder {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  
-  vturb-smartplayer {
-    visibility: visible !important;
-    opacity: 1 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: 400px;
-  }
-  
-  /* Responsivo para mobile */
-  @media (max-width: 768px) {
-    .video-section {
-      max-width: 100%;
-      padding: 0 15px;
-    }
-    
-    vturb-smartplayer {
-      min-height: 250px;
-    }
   }
 </style>
   </style>
@@ -184,6 +146,12 @@
       </div>
     </section>
     
+    <section class="seen-on-section">
+      <div class="logos-container">
+        <img src="../images/logonews.png" alt="As seen on major news networks" loading="lazy" decoding="async" style="max-height:48px;width:auto;">
+      </div>
+    </section>
+    
     <section class="comments-section" style="display:none;">
       <div class="comments-container">
         <div class="comment-card">
@@ -204,28 +172,28 @@
           <img src="../images/jessica.png" alt="Avatar — Jessica" class="avatar" loading="lazy" decoding="async">
           <div class="comment-content">
             <h4 class="comment-author">Jessica B.</h4>
-            <p class="comment-text">"This is legit! 3 weeks in and 10 lbs down. My skin's glowing too! ✨"</p>
+            <p class="comment-text">"This is legit! 3 weeks in and 10 lbs down. My skin’s glowing too! ✨"</p>
           </div>
         </div>
         <div class="comment-card">
           <img src="../images/david.png" alt="Avatar — David" class="avatar" loading="lazy" decoding="async">
           <div class="comment-content">
             <h4 class="comment-author">David R.</h4>
-            <p class="comment-text">"I can finally fit into my favorite jeans from college! Down 12 lbs and way less bloated. Easiest health win I've had."</p>
+            <p class="comment-text">"I can finally fit into my favorite jeans from college! Down 12 lbs and way less bloated. Easiest health win I’ve had."</p>
           </div>
         </div>
         <div class="comment-card">
           <img src="../images/emily.png" alt="Avatar — Emily" class="avatar" loading="lazy" decoding="async">
           <div class="comment-content">
             <h4 class="comment-author">Emily Rose</h4>
-            <p class="comment-text">"Wedding in two months—I've already lost 7 lbs in 10 days. I feel so much more confident!"</p>
+            <p class="comment-text">"Wedding in two months—I’ve already lost 7 lbs in 10 days. I feel so much more confident!"</p>
           </div>
         </div>
         <div class="comment-card">
           <img src="../images/busy.png" alt="Avatar — Busy Mom of 3" class="avatar" loading="lazy" decoding="async">
           <div class="comment-content">
             <h4 class="comment-author">BusyMomOf3</h4>
-            <p class="comment-text">"No more sugar crashes. Cravings way down, and I don't need a second coffee. Lost 5 lbs without even trying!"</p>
+            <p class="comment-text">"No more sugar crashes. Cravings way down, and I don’t need a second coffee. Lost 5 lbs without even trying!"</p>
           </div>
         </div>
         <div class="comment-card">
@@ -246,7 +214,7 @@
           <img src="../images/mark.png" alt="Avatar — Mark" class="avatar" loading="lazy" decoding="async">
           <div class="comment-content">
             <h4 class="comment-author">Mark W.</h4>
-            <p class="comment-text">"I hate dieting. This doesn't feel like one—just part of my morning. 14 lbs down and BP improving."</p>
+            <p class="comment-text">"I hate dieting. This doesn’t feel like one—just part of my morning. 14 lbs down and BP improving."</p>
           </div>
         </div>
         <div class="comment-card">
