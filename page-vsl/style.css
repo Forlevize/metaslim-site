@@ -67,10 +67,6 @@ hr.separator{border:0;border-top:1px solid #ddd;margin:.6rem 0}
 .best-value .cta-button:hover{background:var(--teal);color:#fff}
 .best-value-banner{position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark-text);padding:.4rem 1.2rem;border-radius:20px;font-weight:700;font-size:1rem;z-index:2}
 
-/* SEEN ON */
-.seen-on-section{padding:10px 0 30px}
-.logos-container{display:flex;justify-content:center;align-items:center}
-
 /* COMMENTS */
 .comments-section{padding-top:10px}
 .comment-card{
