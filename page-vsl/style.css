@@ -15,8 +15,7 @@ body{margin:0;font-family:'Poppins',sans-serif;background:#fff;color:var(--dark-
 
 /* VIDEO */
 .video-section{margin-bottom:30px}
-.video-placeholder{position:relative;width:100%;min-height:450px;overflow:visible;border-radius:12px}
-vturb-smartplayer{display:block!important;min-height:450px;height:auto!important}
+.video-placeholder{position:relative;width:100%;overflow:hidden;border-radius:12px}
 
 /* TITLES */
 .section-title{font-size:2.5rem;color:var(--dark-text);margin-bottom:.5rem;text-align:center}
