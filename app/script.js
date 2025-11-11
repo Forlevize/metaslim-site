@@ -319,7 +319,7 @@ const contentLibrary = [
   },
 ];
 
-const areaLabels = {
+let areaLabels = {
   rotina: "Rotina",
   saude: "Saúde",
   alimentacao: "Alimentação",
@@ -328,7 +328,7 @@ const areaLabels = {
   emocional: "Apoio Emocional",
 };
 
-const ageLabels = {
+let ageLabels = {
   "0-3": "0-3 meses",
   "4-6": "4-6 meses",
   "7-12": "7-12 meses",
@@ -336,6 +336,11 @@ const ageLabels = {
   "25-36": "2-3 anos",
   "37-60": "3-5 anos",
 };
+
+const API_BASE = window.API_BASE_URL || "http://localhost:4000";
+let planApiAvailable = true;
+let libraryApiAvailable = true;
+const libraryCache = new Map();
 
 const onboardingForm = document.querySelector("#onboarding-form");
 const dashboardView = document.querySelector("#dashboard-view");
@@ -369,35 +374,31 @@ filters.forEach((button) => {
   });
 });
 
-onboardingForm.addEventListener("submit", (event) => {
+onboardingForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(onboardingForm);
-  const motherName = formData.get("motherName");
-  const childName = formData.get("childName");
-  const ageRange = formData.get("childAge");
-  const challenge = formData.get("mainChallenge");
-  const focusAreas = formData.getAll("focus");
+  const payload = {
+    motherName: formData.get("motherName"),
+    childName: formData.get("childName"),
+    ageRange: formData.get("childAge"),
+    challenge: formData.get("mainChallenge"),
+    focus: formData.getAll("focus"),
+  };
 
-  currentAgeRange = ageRange;
-  currentFocus = focusAreas.length ? focusAreas : Object.keys(areaLabels);
+  const planResponse = await createPlan(payload);
 
-  renderDashboard({
-    motherName,
-    childName,
-    ageRange,
-    challenge,
-    focus: currentFocus,
-  });
+  currentAgeRange = planResponse.summary.ageRange;
+  currentFocus = planResponse.summary.focus;
 
-  renderLibrary();
+  renderDashboard(planResponse);
+  await renderLibrary();
   document.querySelector("#dashboard")?.scrollIntoView({ behavior: "smooth" });
 });
 
-function renderDashboard(plan) {
-  const schedule = planSchedule[plan.ageRange] ?? [];
-  const habits = habitRecommendations[plan.ageRange] ?? [];
+function renderDashboard(planResponse) {
+  const { summary, schedule = [], habits = [], insights = [] } = planResponse;
 
-  const focusBadges = plan.focus
+  const focusBadges = summary.focus
     .map(
       (focus) =>
         `<span class="badge" data-area="${focus}">${areaLabels[focus]}</span>`
@@ -407,20 +408,20 @@ function renderDashboard(plan) {
   const welcomeCard = `
     <article class="dash-card">
       <h3>
-        Olá, ${plan.motherName}!
-        <span class="badge">${ageLabels[plan.ageRange] ?? plan.ageRange}</span>
+        Olá, ${summary.motherName}!
+        <span class="badge">${ageLabels[summary.ageRange] ?? summary.ageRange}</span>
       </h3>
       <p>
-        Plano da semana para ${plan.childName}, considerando as prioridades que você selecionou.
+        Plano da semana para ${summary.childName}, considerando as prioridades que você selecionou.
       </p>
       <div class="microcopy">Áreas prioritárias</div>
       <div style="display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:0.6rem;">
         ${focusBadges}
       </div>
       ${
-        plan.challenge
+        summary.challenge
           ? `<div class="microcopy" style="margin-top:1.2rem;">
-              <strong>Desafio atual:</strong> ${plan.challenge}
+              <strong>Desafio atual:</strong> ${summary.challenge}
             </div>`
           : ""
       }
@@ -437,7 +438,7 @@ function renderDashboard(plan) {
             <span>${item.detail}</span>
           </div>
           ${
-            plan.focus.includes(item.area)
+              summary.focus.includes(item.area)
               ? `<span class="badge">${areaLabels[item.area]}</span>`
               : ""
           }
@@ -478,8 +479,6 @@ function renderDashboard(plan) {
     </article>
   `;
 
-  const insights = generateInsights(plan);
-
   const insightsCard = `
     <article class="dash-card">
       <h3>Insights personalizados <span class="badge">Sugestões</span></h3>
@@ -508,7 +507,133 @@ function renderDashboard(plan) {
   `;
 }
 
-function generateInsights(plan) {
+async function createPlan(payload) {
+  if (planApiAvailable) {
+    try {
+      const response = await fetch(`${API_BASE}/api/plan`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.warn("Não foi possível usar o backend. Usando plano local.", error);
+      planApiAvailable = false;
+    }
+  }
+
+  return createLocalPlan(payload);
+}
+
+function createLocalPlan(payload) {
+  const {
+    motherName = "Mãe",
+    childName = "Criança",
+    ageRange = "0-3",
+    challenge = "",
+    focus: focusInput = [],
+  } = payload;
+
+  const focus =
+    Array.isArray(focusInput) && focusInput.length
+      ? focusInput.filter((area) => areaLabels[area])
+      : Object.keys(areaLabels);
+
+  const schedule = planSchedule[ageRange] ?? [];
+  const habits = habitRecommendations[ageRange] ?? [];
+  const insights = buildInsights(focus);
+  const recommendedContent = contentLibrary.filter(
+    (item) => focus.includes(item.area) && item.age.includes(ageRange)
+  );
+
+  return {
+    summary: {
+      motherName,
+      childName,
+      ageRange,
+      challenge,
+      focus,
+    },
+    schedule,
+    habits,
+    insights,
+    recommendedContent,
+  };
+}
+
+async function getLibraryItems(areaFilter, ageRange) {
+  const cacheKey = JSON.stringify({ areaFilter, ageRange });
+  if (libraryCache.has(cacheKey)) {
+    return libraryCache.get(cacheKey);
+  }
+
+  if (libraryApiAvailable) {
+    try {
+      const params = new URLSearchParams();
+      if (ageRange) params.set("ageRange", ageRange);
+      if (areaFilter && areaFilter !== "all") params.set("area", areaFilter);
+
+      const queryString = params.toString();
+      const url = queryString
+        ? `${API_BASE}/api/library?${queryString}`
+        : `${API_BASE}/api/library`;
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Erro ${response.status}`);
+      }
+
+      const data = await response.json();
+      libraryCache.set(cacheKey, data.items);
+      return data.items;
+    } catch (error) {
+      console.warn("Falha ao carregar biblioteca remota. Usando dados locais.", error);
+      libraryApiAvailable = false;
+    }
+  }
+
+  const fallbackItems = filterLocalLibrary(areaFilter, ageRange);
+  libraryCache.set(cacheKey, fallbackItems);
+  return fallbackItems;
+}
+
+function filterLocalLibrary(areaFilter, ageRange) {
+  return contentLibrary.filter((item) => {
+    const matchesArea =
+      areaFilter && areaFilter !== "all" ? item.area === areaFilter : true;
+    const matchesAge = ageRange ? item.age.includes(ageRange) : true;
+    return matchesArea && matchesAge;
+  });
+}
+
+async function loadMeta() {
+  try {
+    const response = await fetch(`${API_BASE}/api/meta`);
+    if (!response.ok) {
+      throw new Error(`Erro ${response.status}`);
+    }
+
+    const data = await response.json();
+    if (data?.areas) {
+      areaLabels = data.areas;
+    }
+    if (data?.ages) {
+      ageLabels = data.ages;
+    }
+  } catch (error) {
+    console.warn("Não foi possível carregar metadados da API.", error);
+  }
+}
+
+function buildInsights(focusAreas) {
   const templates = {
     rotina: {
       title: "Crie check-ins de rotina",
@@ -542,46 +667,49 @@ function generateInsights(plan) {
     },
   };
 
-  return plan.focus.slice(0, 3).map((area) => ({
+  return focusAreas.slice(0, 3).map((area) => ({
     area,
     ...templates[area],
   }));
 }
 
-function renderLibrary() {
-  const recommendedAreas = currentFocus.length ? currentFocus : [];
-  const items = contentLibrary.filter((item) => {
-    const matchesFilter =
-      currentFilter === "all" ? true : item.area === currentFilter;
-    const matchesAge =
-      currentAgeRange == null ? true : item.age.includes(currentAgeRange);
-    return matchesFilter && matchesAge;
-  });
+async function renderLibrary() {
+  try {
+    const recommendedAreas = currentFocus.length ? currentFocus : [];
+    const items = await getLibraryItems(currentFilter, currentAgeRange);
 
-  if (!items.length) {
+    if (!items.length) {
+      libraryGrid.innerHTML = `
+        <div class="dashboard__empty">
+          <p>Nenhum conteúdo encontrado para os filtros selecionados.</p>
+        </div>
+      `;
+      return;
+    }
+
+    libraryGrid.innerHTML = items
+      .map((item) => {
+        const recommended = recommendedAreas.includes(item.area);
+        return `
+          <article class="content-card" data-area="${item.area}">
+            <span class="tag">${areaLabels[item.area]} · ${item.format}</span>
+            <h3>${item.title}</h3>
+            <p>${item.summary}</p>
+            <button class="${recommended ? "secondary" : "ghost"}">
+              ${recommended ? "Adicionar ao plano" : "Detalhes"}
+            </button>
+          </article>
+        `;
+      })
+      .join("");
+  } catch (error) {
+    console.error("Erro ao renderizar biblioteca:", error);
     libraryGrid.innerHTML = `
       <div class="dashboard__empty">
-        <p>Nenhum conteúdo encontrado para os filtros selecionados.</p>
+        <p>Não foi possível carregar a biblioteca de conteúdos.</p>
       </div>
     `;
-    return;
   }
-
-  libraryGrid.innerHTML = items
-    .map((item) => {
-      const recommended = recommendedAreas.includes(item.area);
-      return `
-        <article class="content-card" data-area="${item.area}">
-          <span class="tag">${areaLabels[item.area]} · ${item.format}</span>
-          <h3>${item.title}</h3>
-          <p>${item.summary}</p>
-          <button class="${recommended ? "secondary" : "ghost"}">
-            ${recommended ? "Adicionar ao plano" : "Detalhes"}
-          </button>
-        </article>
-      `;
-    })
-    .join("");
 }
 
 moodBtn.addEventListener("click", () => {
@@ -608,4 +736,6 @@ breathingBtn.addEventListener("click", () => {
   }, 12000);
 });
 
-renderLibrary();
+loadMeta().finally(() => {
+  renderLibrary();
+});
