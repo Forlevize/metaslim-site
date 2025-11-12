@@ -1,410 +1,155 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MetaSlim - Official Site</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <script type="text/javascript" src="https://assets.mycartpanda.com/cartx-ecomm-ui-assets/js/cpsales.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Organizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-  <header class="top-bar">
-    <div class="top-bar-container">
-      <a href="#" class="logo" aria-label="MetaSlim home">
-        <img src="images/logo.png" alt="MetaSlim" class="logo-img">
-      </a>
-
-      <nav class="main-nav">
-        <a href="#about">About</a>
-        <a href="#ingredients">Ingredients</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-
-      <!-- CTA header -> 6 potes -->
-      <a
-        href="https://metaslim.mycartpanda.com/checkout/196963585:1"
-        target="_blank" rel="noopener noreferrer"
-        class="order-now-btn"
-      >Order Now</a>
-    </div>
-  </header>
-
-  <main>
-
-    <!-- ================= HERO / HEADLINE (sem botão) ================= -->
-    <section class="hero-section" id="hero">
-      <div class="hero-overlay"></div>
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <h1 class="hero-title">
-            THE POWER OF PROBIOTICS + NATURAL FIBERS FOR HEALTHY WEIGHT LOSS
-          </h1>
-
-          <p class="hero-subtitle">
-            Backed by science, made with natural ingredients, created to work when diets and workouts don’t.
-          </p>
-
-          <!-- Selos (uma única imagem com 5 selos lado a lado) -->
-          <img src="images/seloh1.png" alt="Quality seals" class="hero-seals" loading="lazy">
-
-          <p class="hero-madein">
-            Manufactured in the USA from the finest of foreign and domestic ingredients.
-          </p>
-        </div>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="header-primary">
+        <h1>Studio Organizer</h1>
+        <p id="currentDate" class="header-date">Carregando data…</p>
       </div>
-    </section>
-    <!-- ================= /HERO ================= -->
+      <form id="quickTaskForm" class="quick-task-form">
+        <label class="sr-only" for="quickTaskInput">Adicionar tarefa rápida</label>
+        <input id="quickTaskInput" type="text" placeholder="Capturar tarefa rápida para o projeto selecionado..." autocomplete="off">
+        <button type="submit">Adicionar</button>
+      </form>
+    </header>
 
-    <!-- PREÇOS (PRIMEIRO BLOCO) -->
-    <section class="pricing-section" id="pricing">
-      <div class="container">
-        <h2 class="section-title">GET YOUR METASLIM AT A DISCOUNT NOW</h2>
-        <p class="section-subtitle">LIMITED STOCK!</p>
+    <main class="app-main">
+      <aside class="sidebar">
+        <section class="card profile-card">
+          <div class="profile-avatar">SO</div>
+          <div>
+            <h2>Meu Painel</h2>
+            <p>Organize projetos, edições e entregas em um só lugar.</p>
+          </div>
+        </section>
 
-        <div class="pricing-container">
-          <!-- 2 Bottles -->
-          <div class="pricing-card">
-            <div class="card-header"><h3>Basic Offer</h3><p>2 Bottles</p></div>
-            <div class="card-body">
-              <img src="images/2bottles.png" alt="Dois potes do produto MetaSlim" class="product-image">
-              <p class="price"><sup>$</sup>79<span class="price-per">/per bottle</span></p>
-              <div class="card-details">
-                <p class="detail-item savings-detail"><span>&#10003;</span> YOU SAVE $220</p><hr class="separator">
-                <p class="detail-item"><span>&#10003;</span> 60 Days Guarantee</p>
-              </div>
-              <a
-                href="https://metaslim.mycartpanda.com/checkout/196963583:1"
-                target="_blank" rel="noopener noreferrer"
-                class="cta-button"
-              >BUY NOW<span class="button-subtext">Basic Offer</span></a>
-              <div class="payment-logos-placeholder"><img src="images/cards.png" alt="Accepted payment methods"></div>
-              <p class="total">Total: <del>$378</del> <strong>$158</strong></p>
-              <p class="shipping">+ $9.99 Shipping</p>
+        <section class="card projects-card">
+          <div class="section-header">
+            <h3>Projetos</h3>
+            <button id="toggleProjectForm" class="ghost-button" type="button">Novo</button>
+          </div>
+          <ul id="projectList" class="project-list"></ul>
+          <form id="projectForm" class="project-form hidden">
+            <div class="form-row">
+              <label for="projectName">Nome</label>
+              <input id="projectName" type="text" required placeholder="Ex: Edição Podcast">
+            </div>
+            <div class="form-row">
+              <label for="projectColor">Cor</label>
+              <input id="projectColor" type="color" value="#4f46e5">
+            </div>
+            <div class="form-actions">
+              <button type="button" class="ghost-button" id="cancelProject">Cancelar</button>
+              <button type="submit" class="primary-button">Salvar</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="card filters-card">
+          <h3>Filtros rápidos</h3>
+          <div class="filter-group" id="statusFilters">
+            <button type="button" data-status-filter="all" class="filter-button active">Todas</button>
+            <button type="button" data-status-filter="pendente" class="filter-button">Pendentes</button>
+            <button type="button" data-status-filter="em_progresso" class="filter-button">Em andamento</button>
+            <button type="button" data-status-filter="concluido" class="filter-button">Concluídas</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="content">
+        <section class="card summary-grid" id="summaryGrid"></section>
+
+        <section class="card agenda-card">
+          <div class="section-header">
+            <div>
+              <h3>Agenda</h3>
+              <p class="muted">Acompanhe o que vence em breve</p>
+            </div>
+            <div class="section-actions">
+              <label class="muted" for="agendaRange">Período</label>
+              <select id="agendaRange">
+                <option value="3">3 dias</option>
+                <option value="7" selected>7 dias</option>
+                <option value="14">14 dias</option>
+              </select>
+            </div>
+          </div>
+          <div id="agendaList" class="agenda-list"></div>
+        </section>
+
+        <section class="card tasks-card">
+          <div class="section-header">
+            <div>
+              <h3 id="currentProjectTitle">Tarefas</h3>
+              <p class="muted" id="taskCountLabel"></p>
             </div>
           </div>
 
-          <!-- 6 Bottles -->
-          <div class="pricing-card best-value">
-            <div class="best-value-banner">Best Value!</div>
-            <div class="card-header"><h3>Best Offer</h3><p>6 Bottles</p></div>
-            <div class="card-body">
-              <img src="images/6bottles.png" alt="Seis potes do produto MetaSlim" class="product-image">
-              <p class="price"><sup>$</sup>49<span class="price-per">/per bottle</span></p>
-              <div class="card-details">
-                <p class="detail-item savings-detail"><span>&#10003;</span> YOU SAVE $840</p><hr class="separator">
-                <p class="detail-item"><span>&#10003;</span> BIGGEST DISCOUNT</p><hr class="separator">
-                <p class="detail-item"><span>&#10003;</span> 60 Days Guarantee</p>
-              </div>
-              <a
-                href="https://metaslim.mycartpanda.com/checkout/196963585:1"
-                target="_blank" rel="noopener noreferrer"
-                class="cta-button"
-              >BUY NOW<span class="button-subtext">Best Offer</span></a>
-              <div class="payment-logos-placeholder"><img src="images/cards.png" alt="Accepted payment methods"></div>
-              <p class="total">Total: <del>$1134</del> <strong>$294</strong></p>
-              <p class="shipping"><strong>FREE SHIPPING</strong></p>
+          <form id="taskForm" class="task-form">
+            <div class="form-row">
+              <label for="taskTitle">Título</label>
+              <input id="taskTitle" type="text" required placeholder="Ex: Revisar roteiro do episódio">
             </div>
-          </div>
-
-          <!-- 3 Bottles -->
-          <div class="pricing-card">
-            <div class="card-header"><h3>Most Popular</h3><p>3 Bottles</p></div>
-            <div class="card-body">
-              <img src="images/3bottles.png" alt="Três potes do produto MetaSlim" class="product-image">
-              <p class="price"><sup>$</sup>69<span class="price-per">/per bottle</span></p>
-              <div class="card-details">
-                 <p class="detail-item savings-detail"><span>&#10003;</span> YOU SAVE $360</p><hr class="separator">
-                 <p class="detail-item"><span>&#10003;</span> 60 Days Guarantee</p>
-              </div>
-              <a
-                href="https://metaslim.mycartpanda.com/checkout/196963584:1"
-                target="_blank" rel="noopener noreferrer"
-                class="cta-button"
-              >BUY NOW<span class="button-subtext">Good Offer</span></a>
-              <div class="payment-logos-placeholder"><img src="images/cards.png" alt="Accepted payment methods"></div>
-              <p class="total">Total: <del>$567</del> <strong>$207</strong></p>
-              <p class="shipping"><strong>FREE SHIPPING</strong></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="benefits-section" id="about">
-      <div class="container">
-        <h2 class="section-title">ACTIVATE YOUR BODY’S NATURAL FAT-BURNING SWITCH</h2>
-        <p class="section-subtitle">METASLIM IS THE SMART FORMULA THAT COMBINES PROBIOTICS, PREBIOTICS, AND NATURAL EXTRACTS TO HELP YOUR BODY BURN FAT, BOOST ENERGY, AND MAINTAIN BALANCE — NATURALLY.</p>
-        <div class="benefits-grid">
-          <div class="benefit-item"><div class="benefit-icon">🔥</div><div class="benefit-text"><h3>Boosts Fat Loss</h3><p>Targets stubborn fat storage, helping your body use calories more efficiently.</p></div></div>
-          <div class="benefit-item"><div class="benefit-icon">⚡</div><div class="benefit-text"><h3>Accelerates Metabolism</h3><p>Supports calorie burning all day long, even while you’re resting.</p></div></div>
-          <div class="benefit-item"><div class="benefit-icon">🛑</div><div class="benefit-text"><h3>Controls Appetite & Cravings</h3><p>Helps reduce overeating by keeping you satisfied for longer.</p></div></div>
-          <div class="benefit-item"><div class="benefit-icon">🔋</div><div class="benefit-text"><h3>Sustains Energy & Focus</h3><p>Delivers natural energy, reducing fatigue and boosting motivation.</p></div></div>
-          <div class="benefit-item"><div class="benefit-icon">🩺</div><div class="benefit-text"><h3>Improves Digestion & Gut Health</h3><p>Balances your microbiome to support a healthy metabolism and reduce bloating.</p></div></div>
-          <div class="benefit-item"><div class="benefit-icon">🌿</div><div class="benefit-text"><h3>100% Natural Formula</h3><p>Made with probiotics, prebiotics, and natural extracts — safe, effective, and free from harsh chemicals.</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- INGREDIENTES -->
-    <section class="ingredients-section" id="ingredients">
-      <div class="container">
-        <h2 class="section-title">YOUR ALL-IN-ONE FORMULA FOR WEIGHT SUPPORT</h2>
-        <p class="section-subtitle">STAY BALANCED, STAY ENERGIZED, STAY READY FOR ANYTHING.</p>
-        <div class="ingredients-list">
-          <ul>
-            <li><strong>Clostridium butyricum:</strong> Supports gut balance and helps turn nutrients into energy instead of fat.</li>
-            <li><strong>Akkermansia muciniphila:</strong> Strengthens the gut lining and promotes a healthy metabolism.</li>
-            <li><strong>Bifidobacterium infantis:</strong> Aids digestion and helps regulate bloating for a flatter stomach.</li>
-            <li><strong>Chicory Inulin:</strong> Feeds good bacteria in the gut, boosting fat metabolism naturally.</li>
-            <li><strong>Potato Resistant Starch:</strong> Improves satiety and helps control cravings by stabilizing blood sugar.</li>
-            <li><strong>Green Tea Extract:</strong> Boosts metabolism and accelerates fat burning.</li>
-            <li><strong>Guaraná:</strong> Naturally high in caffeine, it increases energy, focus, and calorie burn.</li>
-            <li><strong>Cayenne Pepper (Capsaicin):</strong> Triggers thermogenesis, helping the body burn stored fat.</li>
-            <li><strong>Hawaiian salt:</strong> Rich in natural minerals, it helps balance hydration and amplify the fat-burning effects of all other ingredients.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- GARANTIA -->
-    <section class="guarantee-section">
-      <div class="container">
-        <div class="guarantee-box">
-          <img src="images/selo.png" alt="60-Day Money Back Guarantee Seal" class="guarantee-seal">
-          <h2>100% Satisfaction or Your Money Back</h2>
-          <h3>60-Day Guarantee</h3>
-          <p>We're so confident in Metaslim results that we offer a 90-day total satisfaction guarantee. Start using it as soon as you receive it, and within days, you may notice more energy and better appetite control. As weeks pass, you'll see gradual changes in your weight and reduction in resistant areas. If, even after using the product for a few months, you're not completely satisfied, we'll return your money without complications. With Metaslim, you have complete control of your weight loss journey.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPARAÇÃO -->
-    <section class="comparison-section">
-      <div class="container comparison-container">
-        <div class="comparison-image">
-          <img src="images/6bottles.png" alt="MetaSlim Bottles">
-        </div>
-        <div class="comparison-table">
-          <h3>MetaSlim vs Others</h3>
-          <table>
-            <thead>
-              <tr><th>Feature</th><th>MetaSlim</th><th>Others</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Probiotic & Prebiotic Synergy</td><td class="check">✔</td><td class="cross">✖</td></tr>
-              <tr><td>Supports Gut Health for Metabolism</td><td class="check">✔</td><td class="cross">✖</td></tr>
-              <tr><td>Includes Natural Thermogenics</td><td class="check">✔</td><td class="check">✔</td></tr>
-              <tr><td>100% Natural Formula</td><td class="check">✔</td><td class="cross">✖</td></tr>
-              <tr><td>60-Day Money-Back Guarantee</td><td class="check">✔</td><td class="cross">✖</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- DEPOIMENTOS -->
-    <section class="testimonials-section">
-      <div class="container">
-        <h2 class="section-title">REAL CUSTOMERS, REAL LIFE-CHANGING RESULTS</h2>
-        <div class="testimonials-grid">
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <img src="images/Anna R.png" alt="Anna R." class="testimonial-avatar">
+            <div class="form-row form-row-inline">
               <div>
-                <h4>Anna R. — California, USA</h4>
-                <div class="stars">⭐⭐⭐⭐⭐ <span class="verified">Verified Purchase</span></div>
+                <label for="taskDue">Prazo</label>
+                <input id="taskDue" type="date">
               </div>
-            </div>
-            <p class="testimonial-body">"After turning 50, I honestly thought I’d never be able to lose weight again. With MetaSlim, I started noticing changes in the very first week... I feel alive again!"</p>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <img src="images/Linda P.png" alt="Linda P." class="testimonial-avatar">
               <div>
-                <h4>Linda P. — Florida, USA</h4>
-                <div class="stars">⭐⭐⭐⭐⭐ <span class="verified">Verified Purchase</span></div>
+                <label for="taskPriority">Prioridade</label>
+                <select id="taskPriority">
+                  <option value="media">Média</option>
+                  <option value="alta">Alta</option>
+                  <option value="baixa">Baixa</option>
+                </select>
               </div>
-            </div>
-            <p class="testimonial-body">"I’m a mom of three... MetaSlim felt like a gift I gave myself. I’m eating less without even trying, my jeans are finally loose, and my kids keep telling me I look happier."</p>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <img src="images/James L.png" alt="James L." class="testimonial-avatar">
               <div>
-                <h4>James L. — California, USA</h4>
-                <div class="stars">⭐⭐⭐⭐⭐ <span class="verified">Verified Purchase</span></div>
+                <label for="taskStatus">Status</label>
+                <select id="taskStatus">
+                  <option value="pendente">Pendente</option>
+                  <option value="em_progresso">Em andamento</option>
+                  <option value="concluido">Concluída</option>
+                </select>
               </div>
             </div>
-            <p class="testimonial-body">"I was skeptical at first... But MetaSlim really surprised me. My digestion improved, the bloating went away, and I’m sleeping so much better."</p>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <img src="images/Ashley T.png" alt="Ashley T." class="testimonial-avatar">
-              <div>
-                <h4>Ashley T. — Ohio, USA</h4>
-                <div class="stars">⭐⭐⭐⭐⭐ <span class="verified">Verified Purchase</span></div>
-              </div>
+            <div class="form-row">
+              <label for="taskDescription">Notas</label>
+              <textarea id="taskDescription" rows="2" placeholder="Contexto ou checklist rápido"></textarea>
             </div>
-            <p class="testimonial-body">"What impressed me the most was how MetaSlim helped with my water retention. I was always bloated and tired. Now I wake up feeling lighter... I’ve already lost 4 inches off my waist."</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq-section" id="faq">
-      <div class="container">
-        <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
-        <div class="faq-accordion">
-          <div class="faq-item">
-            <button class="faq-question">Is MetaSlim Safe to Use?</button>
-            <div class="faq-answer"><p>Absolutely. MetaSlim is made with 100% natural ingredients and is manufactured in the USA in an FDA-registered facility that follows Good Manufacturing Practices (GMP). However, as with any supplement, it's a good idea to consult your healthcare provider before starting.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question">How Long Will It Take to See Results?</button>
-            <div class="faq-answer"><p>Many MetaSlim users report improved comfort and regularity within the first few weeks. For optimal results, we suggest consistent use for at least 3 months, as consistency is key to maximizing the benefits.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question">Will I Need to Follow a Strict Diet or Exercise?</button>
-            <div class="faq-answer"><p>No drastic changes are needed. MetaSlim is designed to work effectively regardless of lifestyle adjustments. However, combining it with healthy habits may enhance results and contribute to overall well-being.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question">Can I Use MetaSlim with Other Supplements?</button>
-            <div class="faq-answer"><p>Yes, MetaSlim can generally be used alongside other supplements. However, to avoid overlapping ingredients, it's best not to combine it with products that have similar components.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question">How Many Bottles Should I Order?</button>
-            <div class="faq-answer"><p>For the best experience and results, we recommend starting with a 3 or 6-month supply. This will ensure you have enough product to experience the full benefits of MetaSlim.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question">What If MetaSlim Doesn't Work for Me?</button>
-            <div class="faq-answer"><p>We believe in the effectiveness of MetaSlim, but if you're not completely satisfied, we offer a 90-day money-back guarantee. Simply reach out to our customer service team, and we'll process your refund – no questions asked.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question">How Fast Will I Receive My Order?</button>
-            <div class="faq-answer"><p>Orders are processed within 2-3 days. For customers in the US, delivery typically takes 5-7 days. International orders may take 10-12 days, depending on customs procedures.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question">What’s the Best Way to Take MetaSlim?</button>
-            <div class="faq-answer"><p>For optimal results, take MetaSlim as directed on the label, preferably with a glass of water before meals. Consistency is essential to achieve the best results.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PREÇOS (BLOCO FINAL) -->
-    <section class="pricing-section" id="pricing-final">
-      <div class="container">
-        <h2 class="section-title">Secure Your MetaSlim With Discount Right Now — While Supplies Last!</h2>
-
-        <div class="pricing-container">
-          <!-- 2 Bottles -->
-          <div class="pricing-card">
-            <div class="card-header"><h3>Basic Offer</h3><p>2 Bottles</p></div>
-            <div class="card-body">
-              <img src="images/2bottles.png" alt="Dois potes do produto MetaSlim" class="product-image">
-              <p class="price"><sup>$</sup>79<span class="price-per">/per bottle</span></p>
-              <div class="card-details">
-                <p class="detail-item savings-detail"><span>&#10003;</span> YOU SAVE $220</p><hr class="separator">
-                <p class="detail-item"><span>&#10003;</span> 60 Days Guarantee</p>
-              </div>
-              <a
-                href="https://metaslim.mycartpanda.com/checkout/196963583:1"
-                target="_blank" rel="noopener noreferrer"
-                class="cta-button"
-              >BUY NOW<span class="button-subtext">Basic Offer</span></a>
-              <div class="payment-logos-placeholder"><img src="images/cards.png" alt="Accepted payment methods"></div>
-              <p class="total">Total: <del>$378</del> <strong>$158</strong></p>
-              <p class="shipping">+ $9.99 Shipping</p>
+            <div class="form-actions">
+              <button type="submit" class="primary-button">Adicionar tarefa</button>
             </div>
+          </form>
+
+          <div id="taskList" class="task-list"></div>
+        </section>
+
+        <section class="card notes-card">
+          <div class="section-header">
+            <h3>Notas gerais</h3>
           </div>
+          <textarea id="generalNotes" rows="4" placeholder="Anote ideias, links úteis ou pendências soltas..."></textarea>
 
-          <!-- 6 Bottles -->
-          <div class="pricing-card best-value">
-            <div class="best-value-banner">Best Value!</div>
-            <div class="card-header"><h3>Best Offer</h3><p>6 Bottles</p></div>
-            <div class="card-body">
-              <img src="images/6bottles.png" alt="Seis potes do produto MetaSlim" class="product-image">
-              <p class="price"><sup>$</sup>49<span class="price-per">/per bottle</span></p>
-              <div class="card-details">
-                <p class="detail-item savings-detail"><span>&#10003;</span> YOU SAVE $840</p><hr class="separator">
-                <p class="detail-item"><span>&#10003;</span> BIGGEST DISCOUNT</p><hr class="separator">
-                <p class="detail-item"><span>&#10003;</span> 60 Days Guarantee</p>
-              </div>
-              <a
-                href="https://metaslim.mycartpanda.com/checkout/196963585:1"
-                target="_blank" rel="noopener noreferrer"
-                class="cta-button"
-              >BUY NOW<span class="button-subtext">Best Offer</span></a>
-              <div class="payment-logos-placeholder"><img src="images/cards.png" alt="Accepted payment methods"></div>
-              <p class="total">Total: <del>$1134</del> <strong>$294</strong></p>
-              <p class="shipping"><strong>FREE SHIPPING</strong></p>
-            </div>
+          <div class="section-header project-notes-header">
+            <h3>Notas do projeto ativo</h3>
+            <p class="muted" id="projectNotesHint"></p>
           </div>
+          <textarea id="projectNotes" rows="4" placeholder="Anotações específicas do projeto selecionado."></textarea>
+        </section>
+      </section>
+    </main>
+  </div>
 
-          <!-- 3 Bottles -->
-          <div class="pricing-card">
-            <div class="card-header"><h3>Most Popular</h3><p>3 Bottles</p></div>
-            <div class="card-body">
-              <img src="images/3bottles.png" alt="Três potes do produto MetaSlim" class="product-image">
-              <p class="price"><sup>$</sup>69<span class="price-per">/per bottle</span></p>
-              <div class="card-details">
-                 <p class="detail-item savings-detail"><span>&#10003;</span> YOU SAVE $360</p><hr class="separator">
-                 <p class="detail-item"><span>&#10003;</span> 60 Days Guarantee</p>
-              </div>
-              <a
-                href="https://metaslim.mycartpanda.com/checkout/196963584:1"
-                target="_blank" rel="noopener noreferrer"
-                class="cta-button"
-              >BUY NOW<span class="button-subtext">Good Offer</span></a>
-              <div class="payment-logos-placeholder"><img src="images/cards.png" alt="Accepted payment methods"></div>
-              <p class="total">Total: <del>$567</del> <strong>$207</strong></p>
-              <p class="shipping"><strong>FREE SHIPPING</strong></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>FEEL LIGHT, LIVE BALANCED, ALL NATURALLY</p>
-      <p class="disclaimer">Individual results may vary. Use as directed for best results. The statements made on this website have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
-      <p>&copy; 2025 MetaSlim. All Rights Reserved.</p>
-    </div>
-  </footer>
-
-  <script>
-    // FAQ accordion
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      const question = item.querySelector('.faq-question');
-      question.addEventListener('click', () => {
-        const answer = item.querySelector('.faq-answer');
-        const isOpen = item.classList.contains('open');
-
-        faqItems.forEach(otherItem => {
-          otherItem.classList.remove('open');
-          otherItem.querySelector('.faq-answer').style.maxHeight = null;
-        });
-
-        if (!isOpen) {
-          item.classList.add('open');
-          answer.style.maxHeight = answer.scrollHeight + 'px';
-        }
-      });
-    });
-  </script>
+  <script defer src="app.js"></script>
 </body>
 </html>
