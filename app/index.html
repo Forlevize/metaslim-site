@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bem-Estar em Família · Protótipo MVP</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="logo">Bem-Estar em Família</div>
+      <nav>
+        <a href="#onboarding">Onboarding</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#library">Biblioteca</a>
+        <a href="#emotional">Apoio Emocional</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="hero" class="hero">
+        <div class="hero__copy">
+          <h1>
+            Planos personalizados para mães e filhos de 0 a 5 anos em um só lugar
+          </h1>
+          <p>
+            Acompanhe a rotina, saúde, alimentação, sono, desenvolvimento e apoio
+            emocional com recomendações diárias adaptadas ao momento da sua
+            família.
+          </p>
+          <button class="cta" data-scroll="#onboarding">
+            Começar o onboarding
+          </button>
+        </div>
+        <div class="hero__card">
+          <p class="hero__card-title">Plano do dia</p>
+          <ul>
+            <li>08:00 · Café da manhã com frutas</li>
+            <li>10:30 · Soneca curta com ambiente calmo</li>
+            <li>12:30 · Consulta com pediatra (lembrete)</li>
+            <li>15:00 · Atividade sensorial com texturas</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="onboarding" class="panel">
+        <div class="panel__header">
+          <h2>1. Onboarding inteligente</h2>
+          <p>
+            Responda a perguntas rápidas para que possamos montar um plano
+            personalizado para você e seu filho.
+          </p>
+        </div>
+        <form id="onboarding-form" class="form">
+          <div class="form__group">
+            <label for="motherName">Seu nome</label>
+            <input
+              type="text"
+              id="motherName"
+              name="motherName"
+              placeholder="Ex: Ana"
+              required
+            />
+          </div>
+          <div class="form__group">
+            <label for="childName">Nome da criança</label>
+            <input
+              type="text"
+              id="childName"
+              name="childName"
+              placeholder="Ex: Sofia"
+              required
+            />
+          </div>
+          <div class="form__group">
+            <label for="childAge">Idade da criança</label>
+            <select id="childAge" name="childAge" required>
+              <option value="" disabled selected>Selecione</option>
+              <option value="0-3">0 a 3 meses</option>
+              <option value="4-6">4 a 6 meses</option>
+              <option value="7-12">7 a 12 meses</option>
+              <option value="13-24">13 a 24 meses</option>
+              <option value="25-36">25 a 36 meses</option>
+              <option value="37-60">37 a 60 meses</option>
+            </select>
+          </div>
+          <div class="form__group">
+            <span>Quais áreas você deseja priorizar?</span>
+            <div class="chips" role="group" aria-label="Áreas prioritárias">
+              <label class="chip">
+                <input type="checkbox" name="focus" value="rotina" />
+                <span>Rotina</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="focus" value="saude" />
+                <span>Saúde</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="focus" value="alimentacao" />
+                <span>Alimentação</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="focus" value="sono" />
+                <span>Sono</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="focus" value="desenvolvimento" />
+                <span>Desenvolvimento</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="focus" value="emocional" />
+                <span>Apoio Emocional</span>
+              </label>
+            </div>
+          </div>
+          <div class="form__group">
+            <label for="mainChallenge">Maior desafio atual</label>
+            <textarea
+              id="mainChallenge"
+              name="mainChallenge"
+              rows="3"
+              placeholder="Conte rapidamente qual é a sua principal dificuldade no momento"
+            ></textarea>
+          </div>
+          <button type="submit" class="cta">
+            Gerar plano da semana
+          </button>
+        </form>
+      </section>
+
+      <section id="dashboard" class="panel panel--alt">
+        <div class="panel__header">
+          <h2>2. Dashboard personalizado</h2>
+          <p>
+            Veja o plano da semana, lembretes importantes e o status dos hábitos
+            em um único lugar.
+          </p>
+        </div>
+        <div class="dashboard" id="dashboard-view" aria-live="polite">
+          <div class="dashboard__empty">
+            <p>
+              Complete o onboarding para gerar um plano personalizado para sua
+              família.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="library" class="panel">
+        <div class="panel__header">
+          <h2>3. Biblioteca curada por especialistas</h2>
+          <p>
+            Conteúdo relevante para cada fase do desenvolvimento, com filtros por
+            tema, idade e tipo de recomendação.
+          </p>
+        </div>
+        <div class="filters">
+          <button class="filter is-active" data-filter="all">Tudo</button>
+          <button class="filter" data-filter="rotina">Rotina</button>
+          <button class="filter" data-filter="saude">Saúde</button>
+          <button class="filter" data-filter="alimentacao">Alimentação</button>
+          <button class="filter" data-filter="sono">Sono</button>
+          <button class="filter" data-filter="desenvolvimento">
+            Desenvolvimento
+          </button>
+          <button class="filter" data-filter="emocional">Apoio Emocional</button>
+        </div>
+        <div class="card-grid" id="library-grid"></div>
+      </section>
+
+      <section id="emotional" class="panel panel--alt">
+        <div class="panel__header">
+          <h2>4. Apoio emocional e autocuidado</h2>
+          <p>
+            Cuide de você: registre seus sentimentos, receba orientações de
+            especialistas e encontre uma comunidade segura.
+          </p>
+        </div>
+        <div class="emotional">
+          <div class="emotional__card">
+            <h3>Diário rápido</h3>
+            <textarea
+              id="mood-journal"
+              rows="4"
+              placeholder="Como você está se sentindo hoje?"
+            ></textarea>
+            <button class="secondary" id="save-mood">Salvar registro</button>
+            <p class="microcopy" id="mood-status"></p>
+          </div>
+          <div class="emotional__card">
+            <h3>Exercício guiado</h3>
+            <ol>
+              <li>Respire profundamente por 4 segundos.</li>
+              <li>Segure o ar por 4 segundos.</li>
+              <li>Expire lentamente por 6 segundos.</li>
+              <li>Repita pelo menos 4 vezes.</li>
+            </ol>
+            <button class="secondary" id="start-breathing">
+              Iniciar exercício
+            </button>
+            <p class="microcopy" id="breathing-status"></p>
+          </div>
+          <div class="emotional__card">
+            <h3>Rede de apoio</h3>
+            <ul class="support-list">
+              <li>
+                <span>Canal com psicóloga parceira (agendamento)</span>
+                <button class="ghost">Saber mais</button>
+              </li>
+              <li>
+                <span>Grupo moderado: Mães de bebês até 1 ano</span>
+                <button class="ghost">Participar</button>
+              </li>
+              <li>
+                <span>Plantão de dúvidas com consultora de amamentação</span>
+                <button class="ghost">Reservar vaga</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Protótipo de experiência · Conteúdo demonstrativo · 2025 · Desenvolvido
+        para mães cuidadoras e suas famílias.
+      </p>
+    </footer>
+
+    <script src="./script.js" type="module"></script>
+  </body>
+</html>

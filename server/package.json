@@ -1,0 +1,17 @@
+{
+  "name": "maternity-support-api",
+  "version": "0.1.0",
+  "description": "Mock API para protótipo do sistema de apoio para mães e filhos (0-5 anos)",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

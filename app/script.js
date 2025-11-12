@@ -1,0 +1,741 @@
+const planSchedule = {
+  "0-3": [
+    {
+      time: "07:00",
+      title: "Amamentação ou fórmula",
+      detail: "Alimentação responsiva observando sinais de fome.",
+      area: "alimentacao",
+    },
+    {
+      time: "08:30",
+      title: "Soneca curta",
+      detail: "Ambiente escuro, ruído branco suave.",
+      area: "sono",
+    },
+    {
+      time: "10:00",
+      title: "Tempo de colo e vínculo",
+      detail: "Contato pele a pele para fortalecer vínculo.",
+      area: "emocional",
+    },
+    {
+      time: "12:00",
+      title: "Hidratação da mãe",
+      detail: "Lembre-se de beber água a cada mamada.",
+      area: "saude",
+    },
+    {
+      time: "15:00",
+      title: "Estimulação sensorial",
+      detail: "Brinquedos com texturas e contraste alto.",
+      area: "desenvolvimento",
+    },
+  ],
+  "4-6": [
+    {
+      time: "07:30",
+      title: "Rotina matinal",
+      detail: "Troca, alongamento suave e conversa afetiva.",
+      area: "rotina",
+    },
+    {
+      time: "09:30",
+      title: "Introdução alimentar",
+      detail: "Papinhas ricas em ferro e alimentos amassados.",
+      area: "alimentacao",
+    },
+    {
+      time: "12:00",
+      title: "Check-up rápido",
+      detail: "Observar temperatura e sinais de desconforto.",
+      area: "saude",
+    },
+    {
+      time: "14:00",
+      title: "Soneca guiada",
+      detail: "Ritual com música calma e quarto escuro.",
+      area: "sono",
+    },
+    {
+      time: "17:00",
+      title: "Brincadeira de rolar",
+      detail: "Estimula coordenação motora e confiança.",
+      area: "desenvolvimento",
+    },
+  ],
+  "7-12": [
+    {
+      time: "07:30",
+      title: "Café da manhã nutritivo",
+      detail: "Frutas amassadas com aveia e iogurte natural.",
+      area: "alimentacao",
+    },
+    {
+      time: "09:00",
+      title: "Atividade musical",
+      detail: "Cantigas com gestos para linguagem e vínculo.",
+      area: "desenvolvimento",
+    },
+    {
+      time: "11:30",
+      title: "Soneca estruturada",
+      detail: "Ambiente calmo, ruído branco e objeto de apego.",
+      area: "sono",
+    },
+    {
+      time: "14:00",
+      title: "Consulta pediátrica mensal",
+      detail: "Revisar carteira de vacinação e medidas.",
+      area: "saude",
+    },
+    {
+      time: "16:30",
+      title: "Tempo ao ar livre",
+      detail: "Parque ou varanda com estímulos visuais.",
+      area: "rotina",
+    },
+  ],
+  "13-24": [
+    {
+      time: "07:00",
+      title: "Café completo",
+      detail: "Ovos mexidos, frutas e um carboidrato complexo.",
+      area: "alimentacao",
+    },
+    {
+      time: "09:00",
+      title: "Atividade sensorial",
+      detail: "Pintura com dedos para coordenação fina.",
+      area: "desenvolvimento",
+    },
+    {
+      time: "12:00",
+      title: "Rotina de higiene",
+      detail: "Escovar dentes com creme infantil e cantar música.",
+      area: "saude",
+    },
+    {
+      time: "13:00",
+      title: "Soneca principal",
+      detail: "Ritual de leitura curta e ambiente escuro.",
+      area: "sono",
+    },
+    {
+      time: "16:30",
+      title: "Tempo em família",
+      detail: "Conversar sobre sentimentos do dia com a criança.",
+      area: "emocional",
+    },
+  ],
+  "25-36": [
+    {
+      time: "07:30",
+      title: "Rotina de autonomia",
+      detail: "Deixe a criança escolher a roupa entre opções.",
+      area: "desenvolvimento",
+    },
+    {
+      time: "09:00",
+      title: "Lanche equilibrado",
+      detail: "Fruta + oleaginosa + carboidrato integral.",
+      area: "alimentacao",
+    },
+    {
+      time: "11:00",
+      title: "Consulta odontológica (semestre)",
+      detail: "Agendar revisão para saúde bucal.",
+      area: "saude",
+    },
+    {
+      time: "14:00",
+      title: "Atividade ao ar livre",
+      detail: "Circuito motor simples ou passeio no parque.",
+      area: "rotina",
+    },
+    {
+      time: "19:30",
+      title: "Higiene do sono",
+      detail: "Banho morno, história tranquila e luz baixa.",
+      area: "sono",
+    },
+  ],
+  "37-60": [
+    {
+      time: "07:00",
+      title: "Planejamento do dia",
+      detail: "Criar juntos a agenda com ícones divertidos.",
+      area: "rotina",
+    },
+    {
+      time: "10:00",
+      title: "Lanche colorido",
+      detail: "Incluir 3 cores diferentes de alimentos.",
+      area: "alimentacao",
+    },
+    {
+      time: "13:00",
+      title: "Momento de aprendizado",
+      detail: "Jogo de montar histórias para estimular linguagem.",
+      area: "desenvolvimento",
+    },
+    {
+      time: "16:00",
+      title: "Consulta preventiva",
+      detail: "Verificar agenda de vacinas e crescimento.",
+      area: "saude",
+    },
+    {
+      time: "20:00",
+      title: "Gratidão em família",
+      detail: "Cada um compartilha algo bom do dia.",
+      area: "emocional",
+    },
+  ],
+};
+
+const habitRecommendations = {
+  "0-3": [
+    { label: "Horas de sono", detail: "14-17h distribuídas em 4-5 sonecas." },
+    { label: "Alimentação", detail: "Amamentação sob livre demanda." },
+    { label: "Autocuidado materno", detail: "Intervalo de 20 min para descanso." },
+  ],
+  "4-6": [
+    { label: "Sono noturno", detail: "10-12h contínuas, 2-3 sonecas." },
+    { label: "Introdução alimentar", detail: "2 refeições sólidas + 1 fruta." },
+    { label: "Hidratação", detail: "Mãe: 2,5L/dia; bebê: água após refeições." },
+  ],
+  "7-12": [
+    { label: "Rotina", detail: "Janelas de sono a cada 3h." },
+    { label: "Estimulação", detail: "15 min/dia de leitura compartilhada." },
+    { label: "Saúde", detail: "Calendário de vacinas atualizado." },
+  ],
+  "13-24": [
+    { label: "Sono", detail: "11-14h/dia com 1-2 sonecas." },
+    { label: "Alimentação", detail: "3 refeições + 2 lanches variados." },
+    { label: "Movimento", detail: "60 min de brincadeira ativa." },
+  ],
+  "25-36": [
+    { label: "Autonomia", detail: "Envolver em tarefas simples (guardar brinquedos)." },
+    { label: "Sono", detail: "11-13h com rotina consistente." },
+    { label: "Saúde emocional", detail: "Check-in diário: como você se sente?" },
+  ],
+  "37-60": [
+    { label: "Sono", detail: "10-13h com ritual fixo." },
+    { label: "Aprendizado", detail: "Atividades de pré-alfabetização 20 min/dia." },
+    { label: "Saúde", detail: "Consulta anual e rastreio visual/auditivo." },
+  ],
+};
+
+const contentLibrary = [
+  {
+    id: 1,
+    title: "Checklist da rotina matinal tranquila",
+    summary:
+      "Passo a passo para organizar manhãs com menos estresse e mais previsibilidade.",
+    area: "rotina",
+    age: ["0-3", "4-6", "7-12"],
+    format: "Checklist",
+  },
+  {
+    id: 2,
+    title: "Agenda de vacinas até os 5 anos",
+    summary:
+      "Linha do tempo completa com lembretes para cada fase e sinais de alerta.",
+    area: "saude",
+    age: ["0-3", "4-6", "7-12", "13-24", "25-36", "37-60"],
+    format: "Guia",
+  },
+  {
+    id: 3,
+    title: "Cardápios semanais equilibrados",
+    summary:
+      "Sugestões por faixa etária com ingredientes acessíveis e substituições.",
+    area: "alimentacao",
+    age: ["4-6", "7-12", "13-24", "25-36", "37-60"],
+    format: "Planner",
+  },
+  {
+    id: 4,
+    title: "Higiene do sono: ritual noturno",
+    summary:
+      "Como criar um ritual consistente e ajustar o ambiente para noites tranquilas.",
+    area: "sono",
+    age: ["0-3", "4-6", "7-12", "13-24", "25-36"],
+    format: "Artigo",
+  },
+  {
+    id: 5,
+    title: "Brincadeiras para cada marco de desenvolvimento",
+    summary:
+      "Atividades sensoriais, motoras e cognitivas separadas por idade.",
+    area: "desenvolvimento",
+    age: ["0-3", "4-6", "7-12", "13-24", "25-36"],
+    format: "Atividades",
+  },
+  {
+    id: 6,
+    title: "Primeiros cuidados emocionais da mãe",
+    summary:
+      "Técnicas curtas de respiração, diário de gratidão e momentos de pausa.",
+    area: "emocional",
+    age: ["0-3", "4-6", "7-12", "13-24", "25-36", "37-60"],
+    format: "Guia",
+  },
+  {
+    id: 7,
+    title: "Plano semanal de rotinas compartilhadas",
+    summary:
+      "Estratégias para dividir tarefas entre cuidadores e manter consistência.",
+    area: "rotina",
+    age: ["13-24", "25-36", "37-60"],
+    format: "Modelo",
+  },
+  {
+    id: 8,
+    title: "Sinais de alerta que exigem consulta médica",
+    summary:
+      "Checklist para identificar sintomas importantes e agir com segurança.",
+    area: "saude",
+    age: ["0-3", "4-6", "7-12", "13-24", "25-36", "37-60"],
+    format: "Checklist",
+  },
+  {
+    id: 9,
+    title: "Receitas rápidas para picky eaters",
+    summary:
+      "Como apresentar novos sabores e texturas para crianças seletivas.",
+    area: "alimentacao",
+    age: ["25-36", "37-60"],
+    format: "Receitas",
+  },
+  {
+    id: 10,
+    title: "Mindfulness para mães ocupadas",
+    summary:
+      "Práticas de 5 minutos para reduzir a ansiedade e criar espaço mental.",
+    area: "emocional",
+    age: ["0-3", "4-6", "7-12", "13-24", "25-36", "37-60"],
+    format: "Audio-guia",
+  },
+];
+
+let areaLabels = {
+  rotina: "Rotina",
+  saude: "Saúde",
+  alimentacao: "Alimentação",
+  sono: "Sono",
+  desenvolvimento: "Desenvolvimento",
+  emocional: "Apoio Emocional",
+};
+
+let ageLabels = {
+  "0-3": "0-3 meses",
+  "4-6": "4-6 meses",
+  "7-12": "7-12 meses",
+  "13-24": "1-2 anos",
+  "25-36": "2-3 anos",
+  "37-60": "3-5 anos",
+};
+
+const API_BASE = window.API_BASE_URL || "http://localhost:4000";
+let planApiAvailable = true;
+let libraryApiAvailable = true;
+const libraryCache = new Map();
+
+const onboardingForm = document.querySelector("#onboarding-form");
+const dashboardView = document.querySelector("#dashboard-view");
+const libraryGrid = document.querySelector("#library-grid");
+const filters = document.querySelectorAll(".filter");
+const ctaButtons = document.querySelectorAll("[data-scroll]");
+
+const moodTextarea = document.querySelector("#mood-journal");
+const moodStatus = document.querySelector("#mood-status");
+const moodBtn = document.querySelector("#save-mood");
+const breathingStatus = document.querySelector("#breathing-status");
+const breathingBtn = document.querySelector("#start-breathing");
+
+let currentFilter = "all";
+let currentAgeRange = null;
+let currentFocus = [];
+
+ctaButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const target = document.querySelector(btn.dataset.scroll);
+    target?.scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+filters.forEach((button) => {
+  button.addEventListener("click", () => {
+    filters.forEach((btn) => btn.classList.remove("is-active"));
+    button.classList.add("is-active");
+    currentFilter = button.dataset.filter;
+    renderLibrary();
+  });
+});
+
+onboardingForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const formData = new FormData(onboardingForm);
+  const payload = {
+    motherName: formData.get("motherName"),
+    childName: formData.get("childName"),
+    ageRange: formData.get("childAge"),
+    challenge: formData.get("mainChallenge"),
+    focus: formData.getAll("focus"),
+  };
+
+  const planResponse = await createPlan(payload);
+
+  currentAgeRange = planResponse.summary.ageRange;
+  currentFocus = planResponse.summary.focus;
+
+  renderDashboard(planResponse);
+  await renderLibrary();
+  document.querySelector("#dashboard")?.scrollIntoView({ behavior: "smooth" });
+});
+
+function renderDashboard(planResponse) {
+  const { summary, schedule = [], habits = [], insights = [] } = planResponse;
+
+  const focusBadges = summary.focus
+    .map(
+      (focus) =>
+        `<span class="badge" data-area="${focus}">${areaLabels[focus]}</span>`
+    )
+    .join("");
+
+  const welcomeCard = `
+    <article class="dash-card">
+      <h3>
+        Olá, ${summary.motherName}!
+        <span class="badge">${ageLabels[summary.ageRange] ?? summary.ageRange}</span>
+      </h3>
+      <p>
+        Plano da semana para ${summary.childName}, considerando as prioridades que você selecionou.
+      </p>
+      <div class="microcopy">Áreas prioritárias</div>
+      <div style="display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:0.6rem;">
+        ${focusBadges}
+      </div>
+      ${
+        summary.challenge
+          ? `<div class="microcopy" style="margin-top:1.2rem;">
+              <strong>Desafio atual:</strong> ${summary.challenge}
+            </div>`
+          : ""
+      }
+    </article>
+  `;
+
+  const timelineItems = schedule
+    .map(
+      (item) => `
+        <li>
+          <time>${item.time}</time>
+          <div>
+            <p>${item.title}</p>
+            <span>${item.detail}</span>
+          </div>
+          ${
+              summary.focus.includes(item.area)
+              ? `<span class="badge">${areaLabels[item.area]}</span>`
+              : ""
+          }
+        </li>
+      `
+    )
+    .join("");
+
+  const timelineCard = `
+    <article class="dash-card">
+      <h3>Agenda sugerida <span class="badge">Dia típico</span></h3>
+      <ul class="timeline">
+        ${timelineItems}
+      </ul>
+    </article>
+  `;
+
+  const habitsList = habits
+    .map(
+      (habit) => `
+        <li>
+          <span>${habit.label}</span>
+          <small>${habit.detail}</small>
+        </li>
+      `
+    )
+    .join("");
+
+  const habitsCard = `
+    <article class="dash-card">
+      <h3>Metas da semana <span class="badge">Hábitos</span></h3>
+      <ul class="habit-list">
+        ${habitsList}
+      </ul>
+      <p class="microcopy">
+        Mantenha os registros atualizados para receber novos ajustes automaticamente.
+      </p>
+    </article>
+  `;
+
+  const insightsCard = `
+    <article class="dash-card">
+      <h3>Insights personalizados <span class="badge">Sugestões</span></h3>
+      <ul class="timeline">
+        ${insights
+          .map(
+            (tip) => `
+              <li>
+                <time>${areaLabels[tip.area]}</time>
+                <div>
+                  <p>${tip.title}</p>
+                  <span>${tip.detail}</span>
+                </div>
+              </li>`
+          )
+          .join("")}
+      </ul>
+    </article>
+  `;
+
+  dashboardView.innerHTML = `
+    ${welcomeCard}
+    ${timelineCard}
+    ${habitsCard}
+    ${insightsCard}
+  `;
+}
+
+async function createPlan(payload) {
+  if (planApiAvailable) {
+    try {
+      const response = await fetch(`${API_BASE}/api/plan`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.warn("Não foi possível usar o backend. Usando plano local.", error);
+      planApiAvailable = false;
+    }
+  }
+
+  return createLocalPlan(payload);
+}
+
+function createLocalPlan(payload) {
+  const {
+    motherName = "Mãe",
+    childName = "Criança",
+    ageRange = "0-3",
+    challenge = "",
+    focus: focusInput = [],
+  } = payload;
+
+  const focus =
+    Array.isArray(focusInput) && focusInput.length
+      ? focusInput.filter((area) => areaLabels[area])
+      : Object.keys(areaLabels);
+
+  const schedule = planSchedule[ageRange] ?? [];
+  const habits = habitRecommendations[ageRange] ?? [];
+  const insights = buildInsights(focus);
+  const recommendedContent = contentLibrary.filter(
+    (item) => focus.includes(item.area) && item.age.includes(ageRange)
+  );
+
+  return {
+    summary: {
+      motherName,
+      childName,
+      ageRange,
+      challenge,
+      focus,
+    },
+    schedule,
+    habits,
+    insights,
+    recommendedContent,
+  };
+}
+
+async function getLibraryItems(areaFilter, ageRange) {
+  const cacheKey = JSON.stringify({ areaFilter, ageRange });
+  if (libraryCache.has(cacheKey)) {
+    return libraryCache.get(cacheKey);
+  }
+
+  if (libraryApiAvailable) {
+    try {
+      const params = new URLSearchParams();
+      if (ageRange) params.set("ageRange", ageRange);
+      if (areaFilter && areaFilter !== "all") params.set("area", areaFilter);
+
+      const queryString = params.toString();
+      const url = queryString
+        ? `${API_BASE}/api/library?${queryString}`
+        : `${API_BASE}/api/library`;
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Erro ${response.status}`);
+      }
+
+      const data = await response.json();
+      libraryCache.set(cacheKey, data.items);
+      return data.items;
+    } catch (error) {
+      console.warn("Falha ao carregar biblioteca remota. Usando dados locais.", error);
+      libraryApiAvailable = false;
+    }
+  }
+
+  const fallbackItems = filterLocalLibrary(areaFilter, ageRange);
+  libraryCache.set(cacheKey, fallbackItems);
+  return fallbackItems;
+}
+
+function filterLocalLibrary(areaFilter, ageRange) {
+  return contentLibrary.filter((item) => {
+    const matchesArea =
+      areaFilter && areaFilter !== "all" ? item.area === areaFilter : true;
+    const matchesAge = ageRange ? item.age.includes(ageRange) : true;
+    return matchesArea && matchesAge;
+  });
+}
+
+async function loadMeta() {
+  try {
+    const response = await fetch(`${API_BASE}/api/meta`);
+    if (!response.ok) {
+      throw new Error(`Erro ${response.status}`);
+    }
+
+    const data = await response.json();
+    if (data?.areas) {
+      areaLabels = data.areas;
+    }
+    if (data?.ages) {
+      ageLabels = data.ages;
+    }
+  } catch (error) {
+    console.warn("Não foi possível carregar metadados da API.", error);
+  }
+}
+
+function buildInsights(focusAreas) {
+  const templates = {
+    rotina: {
+      title: "Crie check-ins de rotina",
+      detail:
+        "Defina alertas 30 minutos antes das transições mais sensíveis do seu dia.",
+    },
+    saude: {
+      title: "Monitore sinais importantes",
+      detail:
+        "Registre temperatura, evacuações e humor para facilitar consultas médicas.",
+    },
+    alimentacao: {
+      title: "Inclua variedade inteligente",
+      detail:
+        "Apresente novos alimentos no almoço, quando a criança está mais receptiva.",
+    },
+    sono: {
+      title: "Ritual consistente é chave",
+      detail:
+        "Repita 3 passos: banho morno, história curta e canção suave antes de dormir.",
+    },
+    desenvolvimento: {
+      title: "Brincar é aprender",
+      detail:
+        "Separe 15 minutos com brinquedos que desafiem novas habilidades diariamente.",
+    },
+    emocional: {
+      title: "Cuide de você para cuidar melhor",
+      detail:
+        "Reserve micro-pausas ao longo do dia e registre emoções no diário rápido.",
+    },
+  };
+
+  return focusAreas.slice(0, 3).map((area) => ({
+    area,
+    ...templates[area],
+  }));
+}
+
+async function renderLibrary() {
+  try {
+    const recommendedAreas = currentFocus.length ? currentFocus : [];
+    const items = await getLibraryItems(currentFilter, currentAgeRange);
+
+    if (!items.length) {
+      libraryGrid.innerHTML = `
+        <div class="dashboard__empty">
+          <p>Nenhum conteúdo encontrado para os filtros selecionados.</p>
+        </div>
+      `;
+      return;
+    }
+
+    libraryGrid.innerHTML = items
+      .map((item) => {
+        const recommended = recommendedAreas.includes(item.area);
+        return `
+          <article class="content-card" data-area="${item.area}">
+            <span class="tag">${areaLabels[item.area]} · ${item.format}</span>
+            <h3>${item.title}</h3>
+            <p>${item.summary}</p>
+            <button class="${recommended ? "secondary" : "ghost"}">
+              ${recommended ? "Adicionar ao plano" : "Detalhes"}
+            </button>
+          </article>
+        `;
+      })
+      .join("");
+  } catch (error) {
+    console.error("Erro ao renderizar biblioteca:", error);
+    libraryGrid.innerHTML = `
+      <div class="dashboard__empty">
+        <p>Não foi possível carregar a biblioteca de conteúdos.</p>
+      </div>
+    `;
+  }
+}
+
+moodBtn.addEventListener("click", () => {
+  const value = moodTextarea.value.trim();
+  if (!value) {
+    moodStatus.textContent =
+      "Registre pelo menos uma frase sobre como você está se sentindo.";
+    moodStatus.style.color = "#d97706";
+    return;
+  }
+
+  moodStatus.textContent =
+    "Registro salvo! Observe padrões ao longo da semana para receber novos cuidados.";
+  moodStatus.style.color = "#52606d";
+  moodTextarea.value = "";
+});
+
+breathingBtn.addEventListener("click", () => {
+  breathingStatus.textContent =
+    "Iniciando sequência 4-4-6. Inspire... segure... expire... repita 4 vezes.";
+  setTimeout(() => {
+    breathingStatus.textContent =
+      "Como se sente agora? Anote no diário rápido se notar mudanças.";
+  }, 12000);
+});
+
+loadMeta().finally(() => {
+  renderLibrary();
+});
